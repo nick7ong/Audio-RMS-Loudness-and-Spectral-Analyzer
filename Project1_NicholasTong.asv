@@ -25,7 +25,7 @@ exp_sine_sweep = chirp(t,f0,t(end),f1,'logarithmic');
 
 % Analyze the generated signals amplitude over time
 figure;
-subplot(3, 1, 1);
+sublot(3, 1, 1);
 plot(t,white_noise);
 %spectrogram(white_noise,128,64,512,fs);
 title("Randomly Generated White Noise");
@@ -91,44 +91,39 @@ time_array = (0:length(loudness_white_noise) - 1) * (overlap) / fs;
 bin_size = (fs/2)/buff_size;
 f_spectrum = 0:bin_size:fs/2;
 
-% Plot the loudness and frequency over time for each signal
-% White Noise Plots
+% Plot the loudness over time for each signal
 figure;
-subplot(2, 1, 1);
+subplot(3, 1, 1);
 plot(time_array, loudness_white_noise);
-ylim([0 100]); % normalize y-limit
-title('RMS Loudness of White Noise Over Time');
-ylabel('RMS-Loudness(dB)');
+title('Loudness of White Noise');
+ylabel('Loudness(dB)');
 xlabel('Time(s)')
-subplot(2, 1, 2);
-imagesc(time_array, f_spectrum, 20*log10(spectral_white_noise));
-title('Spectral Content of White Noise Over Time');
-ylabel('Frequency(Hz)')
-xlabel('Time(s)')
-% Sine Tone Plots
-figure;
-subplot(2, 1, 1);
+subplot(3, 1, 2);
 plot(time_array, loudness_sine_tone);
-ylim([0 100]); % normalize y-limit
-title('RMS Loudness of Sine Tone @1000 Hz Over Time');
-ylabel('RMS-Loudness(dB)');
+title('Loudness of Sine Tone @ 1000 Hz');
+ylabel('Loudness(dB)');
 xlabel('Time(s)')
-subplot(2, 1, 2);
-imagesc(time_array, f_spectrum, 20*log10(spectral_sine_tone));
-title('Spectral Content of Sine Tone @1000 Hz Over Time');
+subplot(3, 1, 3);
+plot(time_array, loudness_exp_sine_sweep);
+title('Loudness of Exponential Sine Sweep');
+ylabel('Loudness(dB)');
+xlabel('Time(s)')
+
+% Plot the spectral content over time for each signal
+figure;
+subplot(3, 1, 1);
+imagesc(time_array, f_spectrum, 20*log10(spectral_white_noise));
+title('Spectral Content of White Noise');
 ylabel('Frequency(Hz)')
 xlabel('Time(s)')
-% Exponential Sine Sweep Plots
-figure;
-subplot(2, 1, 1);
-plot(time_array, loudness_exp_sine_sweep);
-ylim([0 100]); % normalize y-limit
-title('RMS Loudness of Exponential Sine Sweep Over Time');
-ylabel('RMS-Loudness(dB)');
+subplot(3, 1, 2);
+imagesc(time_array, f_spectrum, 20*log10(spectral_sine_tone));
+title('Spectral Content of Sine Tone @ 1000 Hz');
+ylabel('Frequency(Hz)')
 xlabel('Time(s)')
-subplot(2, 1, 2);
+subplot(3, 1, 3);
 imagesc(time_array, f_spectrum, 20*log10(spectral_exp_sine_sweep));
-title('Spectral Content of Exponential Sine Sweep Over Time');
+title('Spectral Content of Exponential Sine Sweep');
 ylabel('Frequency(Hz)')
 xlabel('Time(s)')
 
@@ -159,11 +154,10 @@ time_array_new = (0:length(loudness_sample_song) - 1) * (overlap) / fs;
 figure;
 subplot(2, 1, 1);
 plot(time_array_new, loudness_sample_song);
-title('RMS Loudness of Sample Song Over Time');
-ylabel('RMS-Loudness(dB)')
+title('Loudness of Sample Song');
+ylabel('Loudness(dB)')
 xlabel('Time(s)')
 subplot(2, 1, 2);
 imagesc(time_array_new, f_spectrum, 20*log10(spectral_sample_song));
-title('Spectral Content of Sample Song Over Time');
 ylabel('Frequency(Hz)')
 xlabel('Time(s)')
